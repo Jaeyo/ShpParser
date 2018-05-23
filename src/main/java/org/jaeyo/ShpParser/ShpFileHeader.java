@@ -156,4 +156,4 @@ public class ShpFileHeader {
 	public void setBoundingBoxMmax(double boundingBoxMmax) {
 		this.boundingBoxMmax = boundingBoxMmax;
 	}
-} // class
+}

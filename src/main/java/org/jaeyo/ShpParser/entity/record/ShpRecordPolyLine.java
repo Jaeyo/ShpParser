@@ -2,7 +2,7 @@ package org.jaeyo.ShpParser.entity.record;
 
 import org.jaeyo.ShpParser.entity.ShapeType;
 
-public class ShpRecordPolygon implements ShpRecordContent {
+public class ShpRecordPolyLine implements ShpRecordContent{
 	private ShapeType shapeType;
 	private double[] box;
 	private int numParts;
@@ -57,4 +57,4 @@ public class ShpRecordPolygon implements ShpRecordContent {
 	public void setPoints(ShpRecordPoint[] points) {
 		this.points = points;
 	}
-} // class
+}

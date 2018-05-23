@@ -19,10 +19,11 @@ public class ShpParser implements Closeable {
 
 	public ShpParser(File shpFile) throws FileNotFoundException {
 		this.shpRabf = new RandomAccessBinaryFile(shpFile, "r");
-	} // INIT
+	}
 
 	public ShpFileHeader parseFileHeader() throws IOException {
 		shpRabf.seek(0);
+
 		ShpFileHeader header = new ShpFileHeader();
 		header.setFileCode(shpRabf.readInt(true));
 		header.setUnused1(shpRabf.readInt(true));
@@ -41,11 +42,13 @@ public class ShpParser implements Closeable {
 		header.setBoundingBoxZmax(shpRabf.readDouble(false));
 		header.setBoundingBoxMmin(shpRabf.readDouble(false));
 		header.setBoundingBoxMmax(shpRabf.readDouble(false));
+
 		return header;
-	} // parseFileHeader
+	}
 
 	public void parseRecord(ShpRecordParseListener listener) throws IOException {
 		shpRabf.seek(100);
+
 		do {
 			ShpRecord record = new ShpRecord();
 			record.setRecordNumber(shpRabf.readInt(true));
@@ -53,10 +56,11 @@ public class ShpParser implements Closeable {
 			record.setRecordContent(parseShpRecordContent(record.getContentLength()));
 			listener.onParseRecord(record);
 		} while (shpRabf.getFilePointer() < shpRabf.length());
-	} // parseRecord
+	}
 
 	private ShpRecordContent parseShpRecordContent(int contentLength) throws IOException {
 		ShapeType shapeType = ShapeType.getShapeType(shpRabf.readInt(false));
+
 		switch (shapeType) {
 		case NULL: {
 			shpRabf.skipBytes(contentLength);
@@ -90,7 +94,7 @@ public class ShpParser implements Closeable {
 				points[i].setShapeType(ShapeType.POINT);
 				points[i].setX(shpRabf.readDouble(false));
 				points[i].setY(shpRabf.readDouble(false));
-			} // for i
+			}
 			arc.setPoints(points);
 			return arc;
 		}
@@ -115,7 +119,7 @@ public class ShpParser implements Closeable {
 				points[i].setShapeType(ShapeType.POINT);
 				points[i].setX(shpRabf.readDouble(false));
 				points[i].setY(shpRabf.readDouble(false));
-			} // for i
+			}
 			polygon.setPoints(points);
 			return polygon;
 		}
@@ -134,7 +138,7 @@ public class ShpParser implements Closeable {
 				points[i].setShapeType(ShapeType.POINT);
 				points[i].setX(shpRabf.readDouble(false));
 				points[i].setY(shpRabf.readDouble(false));
-			} // for i
+			}
 			multipoint.setPoints(points);
 			return multipoint;
 		}
@@ -158,11 +162,11 @@ public class ShpParser implements Closeable {
 			throw new IOException("unknown format MULTIPATCH");
 		default:
 			throw new IOException("failed to parse");
-		} // switch
-	} // getShpRecordContent
+		}
+	}
 
 	@Override
 	public void close() throws IOException {
 		shpRabf.close();
-	} // close
-} // class
+	}
+}

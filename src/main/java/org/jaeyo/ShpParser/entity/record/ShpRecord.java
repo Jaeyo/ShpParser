@@ -31,4 +31,4 @@ public class ShpRecord {
 	public void setRecordContent(ShpRecordContent recordContent) {
 		this.recordContent = recordContent;
 	}
-} // class
+}

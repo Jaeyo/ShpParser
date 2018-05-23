@@ -30,4 +30,4 @@ public class ShpRecordPoint implements ShpRecordContent {
 	public void setY(double y) {
 		this.y = y;
 	}
-} // class
+}

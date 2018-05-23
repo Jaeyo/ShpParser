@@ -35,6 +35,6 @@ public enum ShapeType {
 			return ShapeType.MULTIPATCH;
 		default:
 			return ShapeType.NULL;
-		} // switch
-	} // getShapeType
+		}
+	}
 }

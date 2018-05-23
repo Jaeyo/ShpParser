@@ -57,4 +57,4 @@ public class ShpRecordArc implements ShpRecordContent{
 	public void setPoints(ShpRecordPoint[] points) {
 		this.points = points;
 	}
-} // class
+}
